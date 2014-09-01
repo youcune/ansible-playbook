@@ -1,0 +1,7 @@
+---
+- name: yum install nginx
+  yum: name=nginx state=present
+- name: service nginx start
+  service: name=nginx state=started
+- name: chkconfig nginx on
+  shell: chkconfig nginx on

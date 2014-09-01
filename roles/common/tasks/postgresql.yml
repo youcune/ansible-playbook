@@ -1,0 +1,20 @@
+---
+- name: postgresql リポジトリの追加
+  yum: name=http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+- name: yum install postgresql93
+  yum: name=postgresql93
+- name: yum install postgresql93-server
+  yum: name=postgresql93-server
+- name: yum install postgresql93-devel
+  yum: name=postgresql93-devel
+- name: service postgresql-9.3 initdb
+  shell: service postgresql-9.3 initdb
+  ignore_errors: yes
+- name: service postgresql-9.3 start
+  service: name=postgresql-9.3 state=started
+- name: chkconfig postgresql-9.3 on
+  shell: chkconfig postgresql-9.3 on
+- name: パスワード認証に変更する
+  copy: src=pg_hba.conf dest=/var/lib/pgsql/9.3/data/pg_hba.conf
+- name: 設定を反映
+  service: name=postgresql-9.3 state=restarted

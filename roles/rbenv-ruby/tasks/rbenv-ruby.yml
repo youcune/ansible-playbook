@@ -1,0 +1,14 @@
+---
+- name: rbenv versions
+  shell: bash -lc "rbenv versions"
+  register: installed_versions
+- name: rbenv install 2.1.2
+  shell: bash -lc "rbenv install 2.1.2"
+  when: installed_versions.stdout.find('2.1.2') == -1
+  async: 900
+- name: rbenv global 2.1.2
+  shell: bash -lc "rbenv global 2.1.2"
+- name: gem install bundler
+  shell: bash -lc "gem install bundler --no-ri --no-rdoc"
+- name: rbenv rehash
+  shell: bash -lc "rbenv rehash"

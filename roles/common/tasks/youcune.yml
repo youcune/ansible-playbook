@@ -1,0 +1,5 @@
+---
+- name: useradd youcune
+  user: name=youcune state=present
+- name: 公開鍵の設置
+  authorized_key: user=youcune key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

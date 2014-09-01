@@ -1,0 +1,10 @@
+---
+- hosts: all
+  sudo: yes
+  roles:
+    - common
+- hosts: repos
+  sudo: yes
+  roles:
+    - rbenv-ruby
+

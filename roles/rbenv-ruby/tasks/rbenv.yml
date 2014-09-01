@@ -1,0 +1,13 @@
+---
+- name: yum install openssl-devel
+  yum: name=openssl-devel state=present
+- name: git clone rbenv
+  git: repo=git://github.com/sstephenson/rbenv.git
+    dest=/usr/local/rbenv
+    executable=/usr/local/bin/git
+- name: git clone ruby-build
+  git: repo=git://github.com/sstephenson/ruby-build.git
+    dest=/usr/local/rbenv/plugins/ruby-build
+    executable=/usr/local/bin/git
+- name: rbenv.sh を配置
+  copy: src=rbenv.sh dest=/etc/profile.d/rbenv.sh

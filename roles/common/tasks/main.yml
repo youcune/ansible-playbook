@@ -1,0 +1,6 @@
+---
+- include: youcune.yml
+- include: epel.yml
+- include: git-2.1.yml
+- include: nginx.yml
+- include: postgresql.yml

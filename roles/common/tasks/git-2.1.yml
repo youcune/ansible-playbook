@@ -1,0 +1,26 @@
+---
+- name: yum erase perl-Git
+  yum: name=perl-Git state=absent
+- name: yum install dependencies
+  yum: name={{item}}
+  with_items:
+    - curl-devel
+    - expat-devel
+    - gettext-devel
+    - openssl-devel
+    - zlib-devel
+    - perl-ExtUtils-MakeMaker
+- name: make git
+  shell: >-
+    wget https://github.com/git/git/archive/v2.1.0.tar.gz &&
+    tar zxvf v2.1.0.tar.gz &&
+    rm -f v2.1.0.tar.gz &&
+    cd git-2.1.0 &&
+    make prefix=/usr/local all
+    chdir=/usr/local/src creates=/usr/local/bin/git
+  async: 900
+- name: make install git
+  shell: >-
+    make prefix=/usr/local install
+    chdir=/usr/local/src/git-2.1.0 creates=/usr/local/bin/git
+  async: 900
